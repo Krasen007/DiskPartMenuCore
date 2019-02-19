@@ -20,7 +20,7 @@
             }
             catch (IOException ex)
             {
-                const string FileMissing = "Game Assets directory does not exist. Exiting... ";
+                const string FileMissing = "Assets directory does not exist. Exiting... ";
                 Console.WriteLine(FileMissing);
                 Console.WriteLine(ex.Message);
                 Console.Write("Press any key...");
@@ -72,32 +72,25 @@
             Console.WriteLine(selectedMenuItem);
 
             bool wantToExit = false;
-
-            for (int i = 1; i < menuIndex + 1; i++)
+            for (int i = 0; i < menuIndex; i++)
             {
-                if (selectedMenuItem.ToString() == i.ToString())
+                if (selectedMenuItem.ToString() == (i + 1).ToString()) // + 1 for zero based indexing
                 {
-                    string command = "/c bin\\debug\\netcoreapp2.1\\diskpartmenu\\MAP_Server\\mount_drive.bat";
-
+                    string command = "/c " + this.menuList[i].ToString();
                     Process.Start("cmd.exe", command);
                 }
-                else if (selectedMenuItem.ToString() == (i + 1).ToString())
-                {
-                    string command = "/c bin\\debug\\netcoreapp2.1\\diskpartmenu\\DiskPart\\ListDisk.bat";
+            }
 
-                    Process.Start("cmd.exe", command);
-                }
-                else
-                {
-                    wantToExit = true;
-                    break;
-                }
+            if (selectedMenuItem.ToString() == (menuIndex + 1).ToString()) // last item
+            {
+                wantToExit = true;
             }
 
             if (wantToExit)
             {
                 this.ShowExitString();
-            } else
+            }
+            else
             {
                 DrawMenu();
             }

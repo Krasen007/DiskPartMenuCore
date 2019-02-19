@@ -1,0 +1,10 @@
+Sel disk 0
+clean
+Cre par pri
+Sel par 1
+Active
+Assign letter=I
+format quick fs=ntfs label="Windows7Pro-MBR"
+Cre par ext
+cre par log
+exit

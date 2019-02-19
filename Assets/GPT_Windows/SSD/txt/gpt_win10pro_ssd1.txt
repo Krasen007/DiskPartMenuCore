@@ -1,0 +1,11 @@
+select disk 1
+clean
+convert gpt
+create partition efi size=128
+format quick fs=fat32 label="System"
+assign letter="S"
+create partition primary 
+format quick fs=ntfs label="Windows_10_Prox64"
+assign letter=I
+create partition primary
+exit

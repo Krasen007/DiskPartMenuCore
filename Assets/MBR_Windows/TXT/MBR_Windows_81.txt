@@ -1,0 +1,13 @@
+Sel disk 0
+clean
+Cre par pri size=102480
+Sel par 1
+Active
+Assign letter=I
+format quick fs=ntfs label="Windows8_1Pro-MBR"
+Cre par ext
+cre par log
+sel par 2
+assign letter=J
+format quick fs=ntfs label="Data"
+exit
