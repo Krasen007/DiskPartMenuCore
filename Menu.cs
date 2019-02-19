@@ -4,18 +4,29 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
+    using System.Threading;
 
     public class Menu
     {
-        private readonly List<string> menuList = new List<string>();
+        private readonly List<string> menuItemList = new List<string>();
 
         public Menu()
+        {
+            this.LoadAssetFolder();
+
+            if (this.CheckIfEmpty(this.menuItemList))
+            {
+                this.DrawMenu();
+            }
+        }
+
+        private void LoadAssetFolder()
         {
             try
             {
                 foreach (string file in Directory.EnumerateFiles(Constants.FolderPath))
                 {
-                    this.menuList.Add(file);
+                    this.menuItemList.Add(file);
                 }
             }
             catch (IOException ex)
@@ -28,11 +39,9 @@
                 Console.Clear();
                 throw;
             }
-
-            this.LoadAllNeededFiles(this.menuList);
         }
 
-        private void LoadAllNeededFiles(List<string> neededFiles)
+        private bool CheckIfEmpty(List<string> neededFiles)
         {
             if (neededFiles.Count == 0)
             {
@@ -42,10 +51,11 @@
                 Console.Write("Press any key...");
                 Console.ReadKey(intercept: true);
                 Console.Clear();
+                return false;
             }
             else
             {
-                this.DrawMenu();
+                return true;
             }
         }
 
@@ -54,11 +64,11 @@
             Console.Clear();
             Console.WriteLine("Type number to pick options:\n");
 
-            int menuIndex = this.menuList.Count;
-
+            // populate menu with items
+            int menuIndex = this.menuItemList.Count;
             for (int i = 0; i < menuIndex; i++)
             {
-                string menuListText = i + 1 + ": " + this.menuList[i].Remove(0, 7) /* hides the asset path */;
+                string menuListText = i + 1 + ": " + this.menuItemList[i].Remove(0, 7) /* hides the asset path, i+1 for zero based  */;
                 Console.WriteLine(menuListText);
             }
 
@@ -71,28 +81,22 @@
             Console.Write("You selected: ");
             Console.WriteLine(selectedMenuItem);
 
-            bool wantToExit = false;
             for (int i = 0; i < menuIndex; i++)
             {
                 if (selectedMenuItem.ToString() == (i + 1).ToString()) // + 1 for zero based indexing
                 {
-                    string command = "/c " + this.menuList[i].ToString();
+                    string command = "/k " + this.menuItemList[i].ToString();
                     Process.Start("cmd.exe", command);
+                    
                 }
             }
 
-            if (selectedMenuItem.ToString() == (menuIndex + 1).ToString()) // last item
-            {
-                wantToExit = true;
-            }
-
-            if (wantToExit)
-            {
+            if (selectedMenuItem.ToString() == (menuIndex + 1).ToString()) // last item is exit
+            {                
                 this.ShowExitString();
-            }
-            else
-            {
-                DrawMenu();
+            } else {               
+                System.Console.WriteLine("new menu"); 
+                this.DrawMenu();
             }
         }
 

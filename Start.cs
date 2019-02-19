@@ -13,9 +13,6 @@
             Console.WriteLine("Hello World!");
             DefineOs();
             StartMenu();
-
-            ////ExecuteCommand("bin\\debug\\netcoreapp2.1\\diskpartmenu\\MAP_Server\\mount_drive.bat");
-            ////ExecuteCommand();
             Console.WriteLine("after bat3111132!");
         }
 
