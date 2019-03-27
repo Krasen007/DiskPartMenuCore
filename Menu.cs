@@ -83,19 +83,22 @@
 
             for (int i = 0; i < menuIndex; i++)
             {
-                if (selectedMenuItem.ToString() == (i + 1).ToString()) // + 1 for zero based indexing
+                // + 1 for zero based indexing
+                if (selectedMenuItem.ToString() == (i + 1).ToString()) 
                 {
                     string command = "/k " + this.menuItemList[i].ToString();
                     Process.Start("cmd.exe", command);
-                    
                 }
             }
 
-            if (selectedMenuItem.ToString() == (menuIndex + 1).ToString()) // last item is exit
-            {                
+            // last item is exit
+            if (selectedMenuItem.ToString() == (menuIndex + 1).ToString()) 
+            {
                 this.ShowExitString();
-            } else {               
-                System.Console.WriteLine("new menu"); 
+            }
+            else
+            {
+                Console.WriteLine("new menu");
                 this.DrawMenu();
             }
         }
