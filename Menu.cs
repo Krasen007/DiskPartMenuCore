@@ -5,7 +5,7 @@
     using System.Diagnostics;
     using System.IO;
     using System.Threading;
-
+    
     public class Menu
     {
         private readonly List<string> menuItemList = new List<string>();
@@ -85,17 +85,34 @@
             {
                 if (selectedMenuItem.ToString() == (i + 1).ToString()) // + 1 for zero based indexing
                 {
-                    string command = "/k " + this.menuItemList[i].ToString();
+                    // Process cmd = new Process();
+
+                    // cmd.StartInfo.FileName = "cmd.exe";
+                    // cmd.StartInfo.RedirectStandardInput = true;
+                    // cmd.StartInfo.RedirectStandardOutput = true;
+                    // cmd.StartInfo.CreateNoWindow = false;
+                    // cmd.StartInfo.UseShellExecute = false;
+
+                    // cmd.Start();
+
+                    // cmd.StandardInput.WriteLine(this.menuItemList[i].ToString());
+                    // cmd.StandardInput.Flush();
+                    // cmd.StandardInput.Close();
+                    // Console.WriteLine(cmd.StandardOutput.ReadToEnd());
+                    // Console.ReadKey();
+
+                    string command = "/c " + this.menuItemList[i].ToString();
                     Process.Start("cmd.exe", command);
-                    
                 }
             }
 
             if (selectedMenuItem.ToString() == (menuIndex + 1).ToString()) // last item is exit
-            {                
+            {
                 this.ShowExitString();
-            } else {               
-                System.Console.WriteLine("new menu"); 
+            }
+            else
+            {
+                System.Console.WriteLine("new menu");
                 this.DrawMenu();
             }
         }
